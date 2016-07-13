@@ -3,3 +3,13 @@ amqp_uri: "amqp://guest:guest@127.0.0.1:5672"
 exchange:
   environment: dev
   exchange_id: dc
+
+amqp_publishing:
+  request_exchange:
+    name: requests
+    type: fanout
+
+listeners:
+  reporting_exchange:
+    name: reporting
+    type: topic
