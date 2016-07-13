@@ -185,6 +185,7 @@ GEM
       rdoc (~> 4.0)
     serverengine (1.5.11)
       sigdump (~> 0.2.2)
+    settingslogic (2.0.9)
     sigar (0.7.3)
     sigdump (0.2.4)
     slop (3.6.0)
@@ -235,6 +236,7 @@ DEPENDENCIES
   rspec-rails (= 3.5.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  settingslogic (= 2.0.9)
   sneakers (= 2.3.5)
   spring
   turbolinks

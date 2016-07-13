@@ -49,3 +49,4 @@ end
 
 gem 'mongoid', '5.1.3'
 gem 'sneakers', '2.3.5'
+gem "settingslogic", "2.0.9"
