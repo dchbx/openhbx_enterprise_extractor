@@ -45,3 +45,4 @@ group :development do
 end
 
 gem 'mongoid', '5.1.3'
+gem 'sneakers', '2.3.5'
