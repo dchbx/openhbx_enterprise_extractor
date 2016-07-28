@@ -5,4 +5,19 @@ class HbxEnrollmentRecord
   field :hbx_enrollment, type: Hash
 
   index({hbx_enrollment_id: 1}, {unique: true})
+
+
+  def self.store(hbx_enrollment_id, data)
+    exiting_record = self.where(:hbx_enrollment_id => hbx_enrollment_id).first
+    if existing_record
+      existing_record.update_attributes!(
+        :hbx_enrollment => data
+      )
+    else
+      self.create!(
+        :hbx_enrollment_id => hbx_enrollment_id,
+        :hbx_enrollment => data
+      )
+    end
+  end
 end

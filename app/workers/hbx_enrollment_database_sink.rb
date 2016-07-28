@@ -21,6 +21,8 @@ class HbxEnrollmentDatabaseSink
     return_status = headers["return_status"].to_s
     case return_status
     when "200"
+      the_xml = Nokogiri::XML(msg)
+      HbxEnrollmentRecord.store(policy_id, the_xml.to_hash)
     when "404"
     else
     end
