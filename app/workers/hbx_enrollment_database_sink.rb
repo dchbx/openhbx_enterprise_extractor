@@ -15,14 +15,14 @@ class HbxEnrollmentDatabaseSink
     Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_extractor"
   end
 
-  def work_with_params(msg, delivery_info, props)
+  def work_with_params(msg, delivery_info, properties)
     headers = properties.headers || {}
     policy_id = headers["policy_id"]
     return_status = headers["return_status"].to_s
     case return_status
     when "200"
       the_xml = Nokogiri::XML(msg)
-      HbxEnrollmentRecord.store(policy_id, the_xml.to_hash)
+      HbxEnrollmentRecord.store(policy_id, XmlHasherizer.serialize(the_xml.root))
     when "404"
     else
     end

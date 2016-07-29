@@ -8,7 +8,7 @@ class HbxEnrollmentRecord
 
 
   def self.store(hbx_enrollment_id, data)
-    exiting_record = self.where(:hbx_enrollment_id => hbx_enrollment_id).first
+    existing_record = self.where(:hbx_enrollment_id => hbx_enrollment_id).first
     if existing_record
       existing_record.update_attributes!(
         :hbx_enrollment => data
