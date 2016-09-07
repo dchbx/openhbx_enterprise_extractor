@@ -15,5 +15,5 @@ Sneakers.configure(
 )
 Sneakers.logger.level = Logger::INFO
 
-runner = Sneakers::Runner.new([HbxEnrollmentDatabaseSink])
+runner = Sneakers::Runner.new([HbxEnrollmentDatabaseSink, HbxEnrollmentExtractor])
 runner.run
