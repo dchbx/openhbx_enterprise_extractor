@@ -3,3 +3,13 @@ amqp_uri: <%= @amqp_uri %>
 exchange:
   environment: <%= @environment %>
   exchange_id: <%= @exchange_id %>
+
+amqp_publishing:
+  request_exchange:
+    name: requests
+    type: fanout
+
+listeners:
+  reporting_exchange:
+    name: reporting
+    type: topic
