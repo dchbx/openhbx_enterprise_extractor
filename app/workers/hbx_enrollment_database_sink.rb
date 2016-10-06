@@ -3,6 +3,14 @@ require "sneakers/handlers/maxretry"
 class HbxEnrollmentDatabaseSink
   include Sneakers::Worker
 
+  def self.retry_exchange_name
+    queue_name + "-retry"
+  end
+
+  def self.queue_name
+    Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_database_sink"
+  end
+
   from_queue self.queue_name,
     :ack => true,
     :prefetch => 5,
@@ -16,14 +24,6 @@ class HbxEnrollmentDatabaseSink
     :arguments => {
       :'x-dead-letter-exchange' => self.retry_exchange_name
     }
-
-    def self.retry_exchange_name
-      queue_name + "-retry"
-    end
-
-    def self.queue_name
-      Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_database_sink"
-    end
 
     def work_with_params(msg, delivery_info, properties)
       begin

@@ -4,6 +4,14 @@ class HbxEnrollmentExtractor
   include Sneakers::Worker
   include AmqpUtils::MessagePublisher
 
+  def self.retry_exchange_name
+    queue_name + "-retry"
+  end
+
+  def self.queue_name
+    Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_extractor"
+  end
+
   from_queue self.queue_name,
     :ack => true,
     :prefetch => 1,
@@ -17,14 +25,6 @@ class HbxEnrollmentExtractor
     :arguments => {
        :'x-dead-letter-exchange' => self.retry_exchange_name
     }
-
-  def self.retry_exchange_name
-    queue_name + "-retry"
-  end
-
-  def self.queue_name
-    Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_extractor"
-  end
 
   def work_with_params(msg, delivery_info, props)
     begin
