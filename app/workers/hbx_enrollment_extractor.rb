@@ -33,7 +33,6 @@ class HbxEnrollmentExtractor
       with_confirmed_channel do |ch|
         rex = ch.exchange(Settings.request_exchange_name, Settings.request_exchange_options)
         reply_to = HbxEnrollmentDatabaseSink.queue_name
-        unknown_variable
         rex.publish("", 
                     {
           :routing_key => "resource.policy",
