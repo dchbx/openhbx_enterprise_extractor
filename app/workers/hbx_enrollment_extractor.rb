@@ -13,7 +13,14 @@ class HbxEnrollmentExtractor
     :routing_key => "info.events.policy.updated",
     :handler => Sneakers::Handlers::Maxretry,
     :retry_timeout => 5000,
-    :heartbeat => 5
+    :heartbeat => 5,
+    :arguments => {
+       :'x-dead-letter-exchange' => self.retry_exchange
+    }
+
+  def self.retry_exchange_name
+    queue_name + "-retry"
+  end
 
   def self.queue_name
     Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_extractor"
