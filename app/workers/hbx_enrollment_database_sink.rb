@@ -19,16 +19,22 @@ class HbxEnrollmentDatabaseSink
   end
 
   def work_with_params(msg, delivery_info, properties)
-    headers = properties.headers || {}
-    policy_id = headers["policy_id"]
-    return_status = headers["return_status"].to_s
-    case return_status
-    when "200"
-      the_xml = Nokogiri::XML(msg)
-      HbxEnrollmentRecord.store(policy_id, XmlHasherizer.serialize(the_xml.root))
-    when "404"
-    else
+    begin
+      headers = properties.headers || {}
+      policy_id = headers["policy_id"]
+      return_status = headers["return_status"].to_s
+      case return_status
+      when "200"
+        the_xml = Nokogiri::XML(msg)
+        HbxEnrollmentRecord.store(policy_id, XmlHasherizer.serialize(the_xml.root))
+      when "404"
+      else
+      end
+      ack!
+    rescue Exception => ex
+      new_error = WorkerError.new(ex.message)
+      new_error.set_backtrace(ex.backtrace)
+      raise new_error
     end
-    ack!
   end
 end

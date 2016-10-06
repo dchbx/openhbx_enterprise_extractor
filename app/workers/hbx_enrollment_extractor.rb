@@ -20,21 +20,28 @@ class HbxEnrollmentExtractor
   end
 
   def work_with_params(msg, delivery_info, props)
-    headers = props.headers || {}
-    enrollment_id = headers["hbx_enrollment_id"]
-    with_confirmed_channel do |ch|
-      rex = ch.exchange(Settings.request_exchange_name, Settings.request_exchange_options)
-      reply_to = HbxEnrollmentDatabaseSink.queue_name
-      rex.publish("", 
-                  {
-                    :routing_key => "resource.policy",
-                    :reply_to => reply_to,
-                    :headers => {
-                      :policy_id => enrollment_id
-                    }
-                  }
-      )
+    begin
+      headers = props.headers || {}
+      enrollment_id = headers["hbx_enrollment_id"]
+      with_confirmed_channel do |ch|
+        rex = ch.exchange(Settings.request_exchange_name, Settings.request_exchange_options)
+        reply_to = HbxEnrollmentDatabaseSink.queue_name
+        unknown_variable
+        rex.publish("", 
+                    {
+          :routing_key => "resource.policy",
+          :reply_to => reply_to,
+          :headers => {
+            :policy_id => enrollment_id
+          }
+        }
+                   )
+      end
+      ack!
+    rescue Exception => ex
+      new_error = WorkerError.new(ex.message)
+      new_error.set_backtrace(ex.backtrace)
+      raise new_error
     end
-    ack!
   end
 end

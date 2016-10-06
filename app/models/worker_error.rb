@@ -1,0 +1,1 @@
+class WorkerError < StandardError; end
