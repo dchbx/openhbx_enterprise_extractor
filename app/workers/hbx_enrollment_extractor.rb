@@ -1,3 +1,5 @@
+require "sneakers/handlers/maxretry"
+
 class HbxEnrollmentExtractor
   include Sneakers::Worker
   include AmqpUtils::MessagePublisher

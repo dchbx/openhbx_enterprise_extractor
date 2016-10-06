@@ -1,3 +1,5 @@
+require "sneakers/handlers/maxretry"
+
 class HbxEnrollmentDatabaseSink
   include Sneakers::Worker
 
