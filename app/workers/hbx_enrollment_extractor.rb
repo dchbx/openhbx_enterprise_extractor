@@ -15,7 +15,7 @@ class HbxEnrollmentExtractor
     :retry_timeout => 5000,
     :heartbeat => 5,
     :arguments => {
-       :'x-dead-letter-exchange' => self.retry_exchange
+       :'x-dead-letter-exchange' => self.retry_exchange_name
     }
 
   def self.retry_exchange_name
