@@ -6,8 +6,8 @@ class HbxEnrollmentExtractor
 
   from_queue self.queue_name,
     :ack => true,
-    :prefetch => 5,
-    :threads => 5,
+    :prefetch => 1,
+    :threads => 1,
     :exchange => Settings.reporting_exchange_name,
     :exchange_options => Settings.reporting_exchange_options,
     :routing_key => "info.events.policy.updated",
@@ -20,7 +20,7 @@ class HbxEnrollmentExtractor
   end
 
   def work_with_params(msg, delivery_info, props)
-    headers = properties.headers || {}
+    headers = props.headers || {}
     enrollment_id = headers["hbx_enrollment_id"]
     with_confirmed_channel do |ch|
       rex = ch.exchange(Settings.request_exchange_name, Settings.request_exchange_options)
