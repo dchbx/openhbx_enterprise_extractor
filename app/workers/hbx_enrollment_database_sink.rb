@@ -8,7 +8,8 @@ class HbxEnrollmentDatabaseSink
     :exchange => Settings.reporting_exchange_name,
     :exchange_options => Settings.reporting_exchange_options,
     :routing_key => "hbx_enrollment.xml_extracted",
-    :handler => Sneakers::Handlers::Oneshot,
+    :handler => Sneakers::Handlers::Maxretry,
+    :retry_timeout => 5000,
     :heartbeat => 5
 
   def self.queue_name
