@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :application, "openhbx_enterprise_extractor"
-set :repo_url, "https://github.com/dchbx/openhbx_enteprise_extractor.git"
+set :repo_url, "https://github.com/dchbx/openhbx_enterprise_extractor.git"
 set :user, "nginx"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
