@@ -12,7 +12,7 @@ class HbxEnrollmentDatabaseSink
     :heartbeat => 5
 
   def self.queue_name
-    Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_extractor"
+    Settings.worker_queue_prefix + "openhbx_enterprise_extractor.hbx_enrollment_database_sink"
   end
 
   def work_with_params(msg, delivery_info, properties)
